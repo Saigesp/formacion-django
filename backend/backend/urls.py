@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls), #viene por defecto
     path('html_base/', views.htmlbase, name='html_base'), # La property name es de uso interno de django ( testing etc )
     path('json_base/', views.jsonbase, name='json_base'),
+    path('get_articles/', views.articles, name="get_articles")
 ]
