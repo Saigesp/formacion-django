@@ -27,5 +27,9 @@
 # 2. Una vez creo un modelo, uso comando: python backend/manage.py makemigrations || para generar las instrucciones que indican como modificar la base de datos, una vez se han generado, migro la base de datos con el comando migrate
  ## 2.1 Dentro de esta app, el archivo models.py donde tengo los modelos, si estos modelos quiero mostrarlos en el admin para poder editarlos desde allí, tengo que crearlos también en el archivo admin.py ---> admin.site.register(Article) (article es el nombre del modelo)
 
+# Parámetros
 
+    ##queryparams (son opcionales, caso más habitual: filtros)
+    ##parametros dentro de la url (son necesarios para la función definida)
+    ##parametros que envío con un post en el body (se usan cuando son más complejos, enviar json etc)
 
