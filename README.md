@@ -12,7 +12,7 @@ python3 -m venv .env/
 Este entorno virtual lo tengo que activar:
 
 ```sh
-source bin/activate
+source .env/bin/activate
 ```
 
 En la terminal aparece ya el entorno virtual:
@@ -36,12 +36,6 @@ python -m django --version
 
 > `python -m` indica que selecciones el modulo X, en este caso Django
 
-Empiezo el proyecto de django, y lo llamo backend:
-
-```sh
-django-admin startproject backend
-```
-
 Con el entorno activado, levanto el proyecto, uso este comando
 
 ```sh
@@ -59,6 +53,14 @@ Crear administrador. Registrar un primer usuario para la tabla o aplicación de 
 ```sh
 python backend/manage.py createsuperuser
 # username: admin, email: admin@gmail.com, password:admin
+```
+
+# EMPEZAR PROYECTO DE NUEVO
+
+COn el entorno activado, crear archivos de django, llamando al proyecto **"backend"**:
+
+```sh
+django-admin startproject backend
 ```
 
 ## ESTRUCTURA Y VISTAS
@@ -80,6 +82,10 @@ python backend/manage.py createsuperuser
     para generar las instrucciones que indican como modificar la base de datos, una vez se han generado, migro la base de datos con el comando migrate
 
     1. Dentro de esta app, el archivo models.py donde tengo los modelos, si estos modelos quiero mostrarlos en el admin para poder editarlos desde allí, tengo que crearlos también en el archivo admin.py ---> admin.site.register(Article) (article es el nombre del modelo)
+
+# MIGRACIONES
+
+[Documentación de Django](https://docs.djangoproject.com/en/4.1/topics/migrations/)
 
 # Parámetros
 
