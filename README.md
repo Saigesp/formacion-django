@@ -83,6 +83,10 @@ django-admin startproject backend
 
     1. Dentro de esta app, el archivo models.py donde tengo los modelos, si estos modelos quiero mostrarlos en el admin para poder editarlos desde allí, tengo que crearlos también en el archivo admin.py ---> admin.site.register(Article) (article es el nombre del modelo)
 
+# MIGRACIONES
+
+[Documentación de Django](https://docs.djangoproject.com/en/4.1/topics/migrations/)
+
 # Parámetros
 
 - queryparams (son opcionales, caso más habitual: filtros)
