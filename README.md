@@ -2,94 +2,143 @@
 
 **importante** python se escribe con snakecase
 
-# INSTALACIÓN
+## Trabajar con django
 
-Primero instalar un entorno virtual (evita conflictos de versiones):
-```sh
-python3 -m venv .env/
-```
-
-Este entorno virtual lo tengo que activar:
+1. Activar entorno virtual (Hay que hacerlo siempre para levantar el proyecto):
 
 ```sh
 source .env/bin/activate
+# puede estar en otro sitio, como .venv/bin/activate
+# o env/bin/activate, por ejemplo
 ```
 
-En la terminal aparece ya el entorno virtual:
-
+2. Comprobar que en la terminal aparece ya el entorno virtual:
 ```sh
-patricia@MacBook-Pro-de-Patricia prueba-django % 
-```
-> Hay que hacerlo siempre para levantar el proyecto
-
-Instalo Django
-
-```sh
-python -m pip install Django
+patricia@MacBook prueba-django %                # <- en mac
+(prueba-django) patricia@MacBook: $             # <- en linux
 ```
 
-Compruebo que está instalado y la versión
-
-```sh
-python -m django --version
-```
-
-> `python -m` indica que selecciones el modulo X, en este caso Django
-
-Con el entorno activado, levanto el proyecto, uso este comando
-
-```sh
-python backend/manage.py runserver
-```
-
-Las migraciones son necesarias cuando se modifica la base de datos (edición, creación de modelos). Son instrucciones para hacer esos cambios en la base de datos
-
+3. Con el entorno activado, ejecutar las migraciones (instrucciones para hacer cambios en la base de datos). Son necesarias siempre que se modifica la base de datos (edición, creación de modelos, etc):
 ```sh
 python backend/manage.py migrate
 ```
 
-Crear administrador. Registrar un primer usuario para la tabla o aplicación de auth, con permisos de admin
+4. Con el entorno activado, levanto el proyecto:
+```sh
+python backend/manage.py runserver
+```
 
+## Empezar un nuevo proyecto
+
+1. Primero instalar un entorno virtual (evita conflictos de versiones) en la carpeta "**.env**":
+```sh
+python3 -m venv .env/
+```
+
+2. Activar el entorno virtual:
+```sh
+source .env/bin/activate
+```
+> En la terminal aparece ya el entorno virtual: `patricia@MacBook-Pro-de-Patricia prueba-django %`
+
+3. Instalo Django
+```sh
+python -m pip install Django
+```
+
+4. Compruebo que está instalado viendo la versión
+
+```sh
+python -m django --version
+```
+> `python -m` indica que selecciones el modulo X, en este caso Django
+
+5. Con el entorno activado, creo archivos de django, llamando al proyecto "**backend**":
+```sh
+django-admin startproject backend
+```
+
+6. Ejecuto las migraciones:
+```sh
+python backend/manage.py migrate
+```
+
+7. Creo un administrador (un primer usuario con permisos de admin):
 ```sh
 python backend/manage.py createsuperuser
 # username: admin, email: admin@gmail.com, password:admin
 ```
 
-# EMPEZAR PROYECTO DE NUEVO
+## Estructura y vistas
 
-COn el entorno activado, crear archivos de django, llamando al proyecto **"backend"**:
+En django el proyecto se organiza en apps (carpetas) que por lo general se organizan por funcionalidad (artículos, compras, etc).
 
+1. Para crear una app llamada articles usar este comando:
 ```sh
-django-admin startproject backend
+python backend/manage.py startapp articles
 ```
 
-## ESTRUCTURA Y VISTAS
+2. Una vez tengo la app, tengo que añadirla en el fichero de `settings.py` en la variable `INSTALLED_APPS`.
 
-1. En django el proyecto se organiza en apps (carpetas) que por lo general se organizan por funcionalidad.
-2. Para crear una app llamada articles usar este comando:
-    ```
-    python backend/manage.py startapp articles
-    ```
-3. Una vez tengo la app, tengo que añadirla en el fichero de `settings.py` en la variable `INSTALLED_APPS`
-
-# MODELOS
-1. Si en lugar de tener solo un archivo models.py, sino que quiero tener una carpeta para organizar modelos, creo una carpeta llamada models y dentro un archivo `__init__.py`. (este archivo lo que indica es que mi carpeta es un módulo, y que por tanto voy a poder importar y exportar "datos")
-
-2. Una vez creo un modelo, uso comando:
-    ```
-    python backend/manage.py makemigrations
-    ```
-    para generar las instrucciones que indican como modificar la base de datos, una vez se han generado, migro la base de datos con el comando migrate
-
-    1. Dentro de esta app, el archivo models.py donde tengo los modelos, si estos modelos quiero mostrarlos en el admin para poder editarlos desde allí, tengo que crearlos también en el archivo admin.py ---> admin.site.register(Article) (article es el nombre del modelo)
-
-# MIGRACIONES
-
-[Documentación de Django](https://docs.djangoproject.com/en/4.1/topics/migrations/)
-
-# Parámetros
+### Parámetros para llamar a los endpoints
 
 - queryparams (son opcionales, caso más habitual: filtros)
 - parametros dentro de la url (son necesarios para la función definida)
 - parametros que envío con un post en el body (se usan cuando son más complejos, enviar json etc)
+
+## Modelos
+
+Son los archivos que reflejan la estructura de la base de datos
+
+### Cada modelo en su propio archivo
+- Si en lugar de tener solo un archivo `models.py` quiero tener una carpeta para organizar modelos, creo una carpeta llamada `models` y dentro un archivo `__init__.py` (este archivo indica que esta carpeta es un módulo, y que por tanto voy a poder importar funciones de archivos en esa carpeta)
+
+### Ver los modelos en el admin de django
+- Dentro de su app, si quiero mostrarl en el admin un modelo para poder editarlo desde allí, tengo que registrarlos en el archivo `admin.py`:
+
+```python
+from django.contrib import admin
+from .models import Article # importar modelo que vas a registrar
+
+admin.site.register(Article) # Registro simple
+```
+
+## Migraciones
+
+[Documentación de Django](https://docs.djangoproject.com/en/4.1/topics/migrations/)
+
+1. Cuando creo, elimino o modifico un modelo, hay que generar las migraciones (instrucciones da cambio para la base de datos). Para ello ejecuto el comando:
+```sh
+python backend/manage.py makemigrations
+```
+
+2. Una vez se han generado, ejecuto las migraciones con el comando:
+```sh
+python backend/manage.py migrate
+```
+
+### Migraciones custom (manuales)
+
+```python
+from django.db import migrations
+
+def apply_migration(apps, *args):
+    ModeloAMigrar = apps.get_model("app_donde_esta_el_modelo", "ModeloAMigrar")
+    # hacer cosas con el modelo
+
+def revert_migration(apps, *args):
+    ModeloAMigrar = apps.get_model("app_donde_esta_el_modelo", "ModeloAMigrar")
+    # deshacer cosas con el modelo
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ("app_1", "0004_nombre_migracion_previa"), # <- migraciones previas necesarias
+        ("app_2", "0025_nombre_migracion_previa"), # <- migraciones previas necesarias
+    ]
+
+    operations = [
+        migrations.RunPython(apply_migration, revert_migration)
+    ]
+```
 
