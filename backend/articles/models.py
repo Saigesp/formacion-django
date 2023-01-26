@@ -8,3 +8,8 @@ class Article(models.Model):
     edit_date = models.DateTimeField(default=timezone.now, help_text="fecha de modificación")
     is_draft = models.BooleanField(default=True)
     is_good = models.BooleanField(default=True)
+
+class Comment(models.Model):
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    body = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now, help_text="fecha de creación")
