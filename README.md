@@ -142,3 +142,8 @@ class Migration(migrations.Migration):
     ]
 ```
 
+## Testing
+
+[Documentación de django](https://docs.djangoproject.com/en/4.1/topics/testing/overview/).
+
+Django utiliza el módulo [unittest](https://docs.python.org/3/library/unittest.html)
