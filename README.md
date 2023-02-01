@@ -147,3 +147,33 @@ class Migration(migrations.Migration):
 [Documentación de django](https://docs.djangoproject.com/en/4.1/topics/testing/overview/).
 
 Django utiliza el módulo [unittest](https://docs.python.org/3/library/unittest.html)
+
+## Django Rest Framework
+
+[Documentación de DRF](https://www.django-rest-framework.org/)
+
+### API Rest
+
+- Cada modelo tiene su propio endpoint: `api/comments/`, `api/articles/`, etc...
+- Métodos CRUD - Create, Read, Update, Delete:
+    - Create:
+        - POST al endpoint: `api/comments/`   
+        - método `create()` en un viewset
+    - Read (all):
+        - GET al endpoint: `api/comments/` 
+        - método `list()` en un viewset
+    - Read (filter):
+        - GET al endpoint: `api/comments/?{parameter1}={param1-value}&{parameter2}={param2-value}` 
+        - método `list()` en un viewset
+    - Read (one):
+        - GET al endpoint: `api/comments/{comment-id}/` 
+        - método .retrieve() en un viewset
+    - Update (all fields):
+        - PUT al endpoint: `api/comments/{comment-id}` (hay que pasarle datos) 
+        - método `update()` en un viewset
+    - Update (some fields):
+        - PATCH al endpoint: `api/comments/{comment-id}` (hay que pasarle datos) 
+        - método `partial_update()` en un viewset
+    - Delete:
+        - DELETE al endpoint: `api/comments/{comment-id}/` 
+        - método `destroy()` en un viewset
