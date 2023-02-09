@@ -62,18 +62,18 @@ from rest_framework.response import Response
 
 class CommentSerializer(ModelSerializer):
 
-    user = serializers.SerializerMethodField(method_name="get_user_real_username")
-    random = serializers.SerializerMethodField()
+    # user = serializers.SerializerMethodField(method_name="get_user_real_username")
+    # random = serializers.SerializerMethodField()
 
-    def get_user_real_username(self, comment):
-        return comment.user.username
+    # def get_user_real_username(self, comment):
+    #     return comment.user.username
 
-    def get_random(self, comment):
-        return random.randint(0, 10)
+    # def get_random(self, comment):
+    #     return random.randint(0, 10)
 
     class Meta:
         model = Comment
-        fields = ("body", "created_date", "user", "random")
+        fields = ("body", "created_date", "user")
 
 
 class CommentViewSet(ModelViewSet):
@@ -83,6 +83,8 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [AllowAny]
+    filterset_fields = ["user"]
+    
 
     def retrieve(self, request, pk):
         if pk == '3':
