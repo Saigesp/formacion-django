@@ -65,7 +65,6 @@ class CommentTestCase(APITestCase):
         # se pueden crear funciones auxiliares
         pass
 
-
     def test_comments_list_return_all_instances(self):
         user_test = User.objects.create(username="test", email="test@gmail.com")
 
@@ -76,16 +75,6 @@ class CommentTestCase(APITestCase):
         response = self.client.get(reverse('hola-list'))
 
         self.assertEqual(len(response.data), 3)
-
-    def test_comments_list_return_all_instances_with_factories(self):
-        user = UserFactory()
-        _ = [CommentFactory(user=user) for n in range(3)]
-
-        response = self.client.get(reverse('hola-list'))
-
-        self.assertEqual(len(response.data), 3)
-
-    
 
     def test_comments_list_return_filtered_instances_by_user(self):
         """
@@ -104,19 +93,9 @@ class CommentTestCase(APITestCase):
 
         self.assertEqual(len(response.data), 3)
 
-    def test_comments_list_return_filtered_instances_by_user_with_factory(self):
-        """
-        Test list endpoint returns instances filtered by user id
-        """
-        user_test_in = UserFactory()
-        instances_to_create = random.randint(3, 10)
-
-        _ = [CommentFactory(user=user_test_in) for n in range(instances_to_create)]
-        _ = [CommentFactory() for n in range(random.randint(1, 4))]
-
         response = self.client.get(reverse('hola-list'), {"user": user_test_in.id})
 
-        self.assertEqual(len(response.data), instances_to_create)
+        self.assertEqual(len(response.data), 3)
 
     def test_comments_retrieve_instance(self):
         """
@@ -128,16 +107,6 @@ class CommentTestCase(APITestCase):
         response = self.client.get(reverse('hola-detail', args=[comment.id]))
 
         self.assertEqual(response.data["user"], user.id)
-        self.assertTrue(response.data.get("body"))
-
-    def test_comments_retrieve_instance_with_factory(self):
-        """
-        Test retrieve endpoint returns an instance
-        """
-        comment = CommentFactory()
-        response = self.client.get(reverse('hola-detail', args=[comment.id]))
-
-        self.assertEqual(response.data["user"], comment.user.id)
         self.assertTrue(response.data.get("body"))
 
     def test_comments_creates_instances(self):
@@ -158,3 +127,53 @@ class CommentTestCase(APITestCase):
         registered_comments = Comment.objects.filter(user=user).count()
         self.assertEqual(registered_comments, 1)
 
+
+
+class CommentTestCaseWithFactories(APITestCase):
+    """
+    Tests using django APITestCase de DRF
+    """
+
+    def setUp(self):
+        # poner codigo que se repite al inicio de todos los tests
+        pass
+
+    def tearDown(self):
+        # poner codigo que se repite al final de todos los tests
+        pass
+
+    def numero_test(self, numero):
+        # se pueden crear funciones auxiliares
+        pass
+
+    def test_comments_list_return_all_instances_with_factories(self):
+        user = UserFactory()
+        _ = [CommentFactory(user=user) for n in range(3)]
+
+        response = self.client.get(reverse('hola-list'))
+
+        self.assertEqual(len(response.data), 3)
+
+    def test_comments_list_return_filtered_instances_by_user_with_factory(self):
+        """
+        Test list endpoint returns instances filtered by user id
+        """
+        user_test_in = UserFactory()
+        instances_to_create = random.randint(3, 10)
+
+        _ = [CommentFactory(user=user_test_in) for n in range(instances_to_create)]
+        _ = [CommentFactory() for n in range(random.randint(1, 4))]
+
+        response = self.client.get(reverse('hola-list'), {"user": user_test_in.id})
+
+        self.assertEqual(len(response.data), instances_to_create)
+
+    def test_comments_retrieve_instance_with_factory(self):
+        """
+        Test retrieve endpoint returns an instance
+        """
+        comment = CommentFactory()
+        response = self.client.get(reverse('hola-detail', args=[comment.id]))
+
+        self.assertEqual(response.data["user"], comment.user.id)
+        self.assertTrue(response.data.get("body"))
