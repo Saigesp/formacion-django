@@ -17,5 +17,5 @@ urlpatterns = [
 from rest_framework import routers
 
 router = routers.SimpleRouter()
-router.register(r'comments', views.CommentViewSet)
+router.register(r'comentarios', views.CommentViewSet, basename="hola")
 urlpatterns += router.urls
