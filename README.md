@@ -167,12 +167,12 @@ Django utiliza el módulo [unittest](https://docs.python.org/3/library/unittest.
         - método `list()` en un viewset
     - Read (one):
         - GET al endpoint: `api/comments/{comment-id}/` 
-        - método .retrieve() en un viewset
+        - método `.retrieve()` en un viewset
     - Update (all fields):
-        - PUT al endpoint: `api/comments/{comment-id}` (hay que pasarle datos) 
+        - PUT al endpoint: `api/comments/{comment-id}/` (hay que pasarle todos datos) 
         - método `update()` en un viewset
     - Update (some fields):
-        - PATCH al endpoint: `api/comments/{comment-id}` (hay que pasarle datos) 
+        - PATCH al endpoint: `api/comments/{comment-id}/` (solo le pasas los datos a cambiar) 
         - método `partial_update()` en un viewset
     - Delete:
         - DELETE al endpoint: `api/comments/{comment-id}/` 
