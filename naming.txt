@@ -1,0 +1,49 @@
+recomendaciones
+- ser consistente con el proyecto
+- seguir lenguage del cliente
+- seguir convenciones del lenguage
+
+    javascript
+        - lineas < 100 caracteres
+        - variablesCamelCase
+        - ClasesSonPascalCase
+            class ClasesSonPascalCase {}
+            const myClass = new ClasesSonPascalCase()
+        - CONSTANTES_SON_MAYUSCULAS
+
+    python
+        - lineas < 80-90 caracteres
+        - variables_snake_case
+        - ClasesSonPascalCase
+            class ClasesSonPascalCase()
+            my_class = ClasesSonPascalCase()
+        - CONSTANTES_SON_MAYUSCULAS
+
+- tener un glosario si la cosa se complica
+- usar palabras comunes en programación
+- evitar abreviaciones y acronimos
+- evitar hacer referencia al valor de la variable
+- evitar la ambigüedad
+- intentar que sean pronunciables
+
+
+objetos (variables, clases, etc)
+- sustantivo (y opt. adjetivo)
+    - asset_discarted
+    - slow_endpoint
+- booleanos
+    - isActive > active
+    - hasChildren > children
+
+
+acciones (funciones)
+- verbos (imperativo)
+    - get_last_words
+    - convert_carrots_to_apples
+- si devuelven un booleano
+    - element_is_active > check_if_element_is_active
+- si devuelven valor
+    - getLastPage()
+- establecen valor en otra cosa
+    - setLastPage()
+
